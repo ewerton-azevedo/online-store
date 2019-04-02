@@ -77,12 +77,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 function autocomplete(input, latInput, lngInput) {
-  console.log(input);
   if (!input) return; // skip this fn from running if there is not input on the page
   var dropdown = new google.maps.places.Autocomplete(input);
 
   dropdown.addListener('place_changed', function () {
-    console.log('Nothing');
     var place = dropdown.getPlace();
     latInput.value = place.geometry.location.lat();
     lngInput.value = place.geometry.location.lng();
