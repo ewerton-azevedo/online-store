@@ -53,6 +53,17 @@ const storeSchema = new mongoose.Schema({
 
 })
 
+ /* Define Indexes
+    Indexing the fields we search the most to speed up db queries
+    create a field type text will facilitate the search tool implementation
+ */
+ storeSchema.index({
+     name: 'text',
+     description: 'text'
+ })
+
+ storeSchema.index({ location:'2dsphere' })
+
 storeSchema.pre('save', async function(next){
     if(!this.isModified('name')){
         next()
