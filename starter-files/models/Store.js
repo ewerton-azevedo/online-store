@@ -51,6 +51,9 @@ const storeSchema = new mongoose.Schema({
         required: 'You must supply an author'
     }
 
+}, {
+    toJSON:{ virtuals: true },
+    toObject:{ virtuals: true }
 })
 
  /* Define Indexes
@@ -90,5 +93,12 @@ storeSchema.statics.getTagsList = function(){
         { $sort: { count: -1 } }
     ])
 }
+
+//find reviews where the stores _id property === reviews store property
+storeSchema.virtual('reviews', {
+    ref: 'Review', //reference the model - what model to link to
+    localField: '_id', //field on the store
+    foreignField: 'store' //field on the review
+})
 
 module.exports = mongoose.model('Store', storeSchema)
